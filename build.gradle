@@ -22,6 +22,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// JDA (Discord Bot)
+	implementation 'net.dv8tion:JDA:5.5.1'
+
+	// H2
+	implementation 'com.h2database:h2'
 }
 
 tasks.named('test') {
