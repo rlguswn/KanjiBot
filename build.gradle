@@ -28,6 +28,12 @@ dependencies {
 
 	// H2
 	implementation 'com.h2database:h2'
+
+	// flyway
+	implementation 'org.flywaydb:flyway-core'
+
+	// Mybatis
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 }
 
 tasks.named('test') {
