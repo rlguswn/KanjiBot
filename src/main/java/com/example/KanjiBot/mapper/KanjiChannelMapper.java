@@ -11,14 +11,9 @@ import java.util.List;
 @Mapper
 public interface KanjiChannelMapper {
 
-    @Insert("INSERT INTO kanji_channel (count, channel_id, guild_id, send_time, created_at) " +
-            "VALUES (#{count}, #{channelId}, #{guildId}, #{sendTime}, #{createdAt})")
-    void insertKanjiChannel(@Param("count") Long count,
-                            @Param("channelId") String channelId,
-                            @Param("guildId") String guildId,
-                            @Param("sendTime") String sendTime,
-                            @Param("createdAt") String createdAt
-    );
+    @Insert("INSERT INTO kanji_channel (count_number, channel_id, guild_id, send_time, created_at) " +
+            "VALUES (#{countNumber}, #{channelId}, #{guildId}, #{sendTime}, #{createdAt})")
+    void insertKanjiChannel(KanjiChannel kanjiChannel);
 
     @Select("SELECT * FROM kanji_channel")
     List<KanjiChannel> findAll();
