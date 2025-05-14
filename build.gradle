@@ -27,10 +27,13 @@ dependencies {
 	implementation 'net.dv8tion:JDA:5.5.1'
 
 	// H2
-	implementation 'com.h2database:h2'
+//	implementation 'com.h2database:h2'
+
+	// MySQL
+	implementation 'mysql:mysql-connector-java:8.0.33'
 
 	// flyway
-	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-mysql'
 
 	// Mybatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
