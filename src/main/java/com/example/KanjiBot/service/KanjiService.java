@@ -35,6 +35,10 @@ public class KanjiService {
 
     public Kanji getKanjiByRandom() {
         Long maxId = kanjiMapper.findMaxId();
+        if (maxId == null || maxId == 0) {
+            return null;
+        }
+
         Long randomId = (long) (Math.random() * maxId);
         return kanjiMapper.findById(randomId);
     }
