@@ -3,7 +3,7 @@ package com.example.KanjiBot.domain;
 public class Kanji {
 
     private Long id;
-    private String character;
+    private String kanjiCharacter;
     private String meaning;
     private String reading;
     private String exampleSentence;
@@ -11,8 +11,8 @@ public class Kanji {
     protected Kanji() {
     }
 
-    public Kanji(String character, String meaning, String reading, String exampleSentence) {
-        this.character = character;
+    public Kanji(String kanjiCharacter, String meaning, String reading, String exampleSentence) {
+        this.kanjiCharacter = kanjiCharacter;
         this.meaning = meaning;
         this.reading = reading;
         this.exampleSentence = exampleSentence;
@@ -22,12 +22,12 @@ public class Kanji {
         return id;
     }
 
-    public String getCharacter() {
-        return character;
+    public String getKanjiCharacter() {
+        return kanjiCharacter;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public void setKanjiCharacter(String kanjiCharacter) {
+        this.kanjiCharacter = kanjiCharacter;
     }
 
     public String getMeaning() {

@@ -12,7 +12,7 @@ import java.util.List;
 public interface KanjiMapper {
 
     @Insert("INSERT INTO kanji (kanji_character, meaning, reading, example_sentence)" +
-            "VALUES (#{character}, #{meaning}, #{reading}, #{exampleSentence})")
+            "VALUES (#{kanjiCharacter}, #{meaning}, #{reading}, #{exampleSentence})")
     void insertKanji(Kanji kanji);
 
     @Select("SELECT * FROM kanji")
