@@ -1,10 +1,7 @@
 package com.example.KanjiBot.mapper;
 
 import com.example.KanjiBot.domain.KanjiChannel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -26,4 +23,10 @@ public interface KanjiChannelMapper {
 
     @Select("SELECT * FROM kanji_channel WHERE send_time = #{sendTime}")
     List<KanjiChannel> findBySendTime(@Param("sendTime") String sendTime);
+
+    @Update("UPDATE kanji_channel SET send_time = #{sendTime} WHERE channel_id = #{channelId}")
+    void updateSendTime(@Param("channelId") String channelId, @Param("sendTime") String sendTime);
+
+    @Update("UPDATE kanji_channel SET count_number = #{countNumber} WHERE channel_id = #{channelId}")
+    void updateCountNumber(@Param("channelId") String channelId, @Param("countNumber") int countNumber);
 }
