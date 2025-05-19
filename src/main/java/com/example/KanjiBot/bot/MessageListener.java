@@ -36,6 +36,11 @@ public class MessageListener extends ListenerAdapter {
             String channelId = event.getChannel().getId();
             String guildId = event.getGuild().getId();
 
+            if (!(sendTime.split(":")[1].equals("30") || sendTime.split(":")[1].equals("00"))) {
+                event.getChannel().sendMessage("30분 단위로 등록이 가능합니다.").queue();
+                return;
+            }
+
             KanjiChannel kanjiChannel = new KanjiChannel(
                     0L,
                     channelId,
