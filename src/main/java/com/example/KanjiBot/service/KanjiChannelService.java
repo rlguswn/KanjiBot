@@ -38,4 +38,8 @@ public class KanjiChannelService {
     public List<KanjiChannel> getKanjiChannelsBySendTime(String sendTime) {
         return kanjiChannelMapper.findBySendTime(sendTime);
     }
+
+    public void updateSendTime(String channelId, String sendTime) {
+        kanjiChannelMapper.updateSendTime(channelId, sendTime);
+    }
 }
