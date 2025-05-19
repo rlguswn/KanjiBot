@@ -52,11 +52,22 @@ public class KanjiService {
         System.out.println("Sending kanji to channels at: " + sendTime);
         System.out.println("Found " + kanjiChannels.size() + " channels for send time: " + sendTime);
         for (KanjiChannel channel : kanjiChannels) {
-            Kanji kanji = getKanjiByRandom();
+            Kanji kanji;
+            if (channel.getSendMode().equals("random")) {
+                kanji = getKanjiByRandom();
+            } else {
+                Long maxId = kanjiMapper.findMaxId();
+                Long countNumber = channel.getCountNumber();
+                Long index = countNumber % maxId + 1;
+
+                kanji = getKanjiById(index);
+            }
+
             if (kanji == null) {
                 System.out.println("No kanji found for random selection.");
                 return;
             }
+
             System.out.println("Sending kanji to channel: " + channel.getChannelId());
             discordMsgSender.sendMessage(channel.getChannelId(), "Kanji 알림이 도착했습니다!");
             discordMsgSender.sendMessage(channel.getChannelId(),
@@ -64,6 +75,8 @@ public class KanjiService {
                     "\nMeaning - " + kanji.getMeaning() +
                     "\nReading - " + kanji.getReading() + "```"
             );
+
+            kanjiChannelService.increaseCountNumber(channel.getChannelId());
         }
     }
 }

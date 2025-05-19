@@ -42,4 +42,18 @@ public class KanjiChannelService {
     public void updateSendTime(String channelId, String sendTime) {
         kanjiChannelMapper.updateSendTime(channelId, sendTime);
     }
+
+    public void increaseCountNumber(String channelId) {
+        KanjiChannel kanjiChannel = kanjiChannelMapper.findByChannelId(channelId);
+        if (kanjiChannel == null) {
+            return;
+        }
+        Long countNumber = kanjiChannel.getCountNumber();
+
+        kanjiChannelMapper.updateCountNumber(channelId, countNumber+1);
+    }
+
+    public void updateSendMode(String channelId, String sendMode) {
+        kanjiChannelMapper.updateSendMode(channelId, sendMode);
+    }
 }

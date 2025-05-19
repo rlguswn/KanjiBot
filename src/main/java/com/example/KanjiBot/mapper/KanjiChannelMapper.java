@@ -28,5 +28,8 @@ public interface KanjiChannelMapper {
     void updateSendTime(@Param("channelId") String channelId, @Param("sendTime") String sendTime);
 
     @Update("UPDATE kanji_channel SET count_number = #{countNumber} WHERE channel_id = #{channelId}")
-    void updateCountNumber(@Param("channelId") String channelId, @Param("countNumber") int countNumber);
+    void updateCountNumber(@Param("channelId") String channelId, @Param("countNumber") Long countNumber);
+
+    @Update("UPDATE kanji_channel SET send_mode = #{sendMode} WHERE channel_id = #{channelId}")
+    void updateSendMode(@Param("channelId") String channelId, @Param("sendMode") String sendMode);
 }

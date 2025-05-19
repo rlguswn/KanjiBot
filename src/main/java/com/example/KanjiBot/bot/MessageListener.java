@@ -85,6 +85,21 @@ public class MessageListener extends ListenerAdapter {
 
             kanjiChannelService.updateSendTime(channelId, null);
             discordMsgSender.sendMessage(event.getChannel().getId(), "Kanji 알림을 해제했습니다!");
+        } else if (content.equals("!모드")) {
+            String channelId = event.getChannel().getId();
+            KanjiChannel kanjiChannel = kanjiChannelService.getKanjiChannelByChannelId(channelId);
+            if (kanjiChannel == null) {
+                discordMsgSender.sendMessage(event.getChannel().getId(), "등록된 알림이 없습니다.");
+                return;
+            }
+
+            if (kanjiChannel.getSendMode().equals("random")) {
+                kanjiChannelService.updateSendMode(channelId, "sequential");
+                discordMsgSender.sendMessage(event.getChannel().getId(), "모드를 `순차적`으로 변경했습니다.");
+            } else {
+                kanjiChannelService.updateSendMode(channelId, "random");
+                discordMsgSender.sendMessage(event.getChannel().getId(), "모드를 `랜덤`으로 변경했습니다.");
+            }
         }
     }
 }

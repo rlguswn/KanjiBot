@@ -9,6 +9,7 @@ public class KanjiChannel {
     private Long countNumber;
     private String guildId;
     private String sendTime;
+    private String sendMode = "random";
     private LocalDate createdAt;
 
     protected KanjiChannel() {
@@ -56,6 +57,14 @@ public class KanjiChannel {
 
     public void setSendTime(String sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public String getSendMode() {
+        return sendMode;
+    }
+
+    public void setSendMode(String sendMode) {
+        this.sendMode = sendMode;
     }
 
     public LocalDate getCreatedAt() {
