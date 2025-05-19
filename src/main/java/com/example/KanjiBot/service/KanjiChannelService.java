@@ -16,6 +16,10 @@ public class KanjiChannelService {
     }
 
     public void createKanjiChannel(KanjiChannel kanjiChannel) {
+        if (kanjiChannelMapper.findByChannelId(kanjiChannel.getChannelId()) != null) {
+            kanjiChannelMapper.updateSendTime(kanjiChannel.getChannelId(), kanjiChannel.getSendTime());
+            return;
+        }
         kanjiChannelMapper.insertKanjiChannel(kanjiChannel);
     }
 
