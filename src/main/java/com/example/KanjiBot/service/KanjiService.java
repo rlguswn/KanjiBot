@@ -45,11 +45,25 @@ public class KanjiService {
 
     public void sendKanjiToAllChannel(String sendTime) {
         List<KanjiChannel> kanjiChannels = kanjiChannelService.getKanjiChannelsBySendTime(sendTime);
+        if (kanjiChannels.isEmpty()) {
+            System.out.println("No channels found for send time: " + sendTime);
+            return;
+        }
         System.out.println("Sending kanji to channels at: " + sendTime);
+        System.out.println("Found " + kanjiChannels.size() + " channels for send time: " + sendTime);
         for (KanjiChannel channel : kanjiChannels) {
             Kanji kanji = getKanjiByRandom();
+            if (kanji == null) {
+                System.out.println("No kanji found for random selection.");
+                return;
+            }
             System.out.println("Sending kanji to channel: " + channel.getChannelId());
-            discordMsgSender.sendMessage(channel.getChannelId(), kanji.getCharacter() + " - " + kanji.getMeaning());
+            discordMsgSender.sendMessage(channel.getChannelId(), "Kanji 알림이 도착했습니다!");
+            discordMsgSender.sendMessage(channel.getChannelId(),
+                    "```DailyKanji - " + kanji.getKanjiCharacter() +
+                    "\nMeaning - " + kanji.getMeaning() +
+                    "\nReading - " + kanji.getReading() + "```"
+            );
         }
     }
 }
