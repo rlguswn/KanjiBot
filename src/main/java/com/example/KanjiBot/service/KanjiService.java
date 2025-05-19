@@ -71,9 +71,13 @@ public class KanjiService {
             System.out.println("Sending kanji to channel: " + channel.getChannelId());
             discordMsgSender.sendMessage(channel.getChannelId(), "Kanji 알림이 도착했습니다!");
             discordMsgSender.sendMessage(channel.getChannelId(),
-                    "```DailyKanji - " + kanji.getKanjiCharacter() +
-                    "\nMeaning - " + kanji.getMeaning() +
-                    "\nReading - " + kanji.getReading() + "```"
+                    "```" +
+                            "📖 Today's Kanji\n" +
+                            "━━━━━━━━━━━━━━━━━━━━\n" +
+                            "Kanji   : " + kanji.getKanjiCharacter() + "\n" +
+                            "Meaning : " + kanji.getMeaning() + "\n" +
+                            "Reading : " + kanji.getReading() + "\n" +
+                            "```"
             );
 
             kanjiChannelService.increaseCountNumber(channel.getChannelId());
