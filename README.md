@@ -4,6 +4,19 @@
 
 </br>
 
+# 🛠️ 기술 스택 & 개발 환경
+- Language: Java 17
+- Framework: Spring Boot 3.4.5
+- Scheduler: Spring Batch
+- ORM: MyBatis
+- Database: MySQL
+- Build Tool: Gradle
+- API 연동: DeepL Translation API (Free Tier)
+- 디스코드 메시지 전송: Java Discord API (JDA)
+- 한자 데이터셋: Kanjidic2
+- 
+</br>
+
 # 📅 개발 기간
 - 25.05.08 ~ 25.05.20
 
@@ -22,34 +35,20 @@
 </br>
 
 # Index
-[1. 기술스택 & 개발환경](#1-기술-스택--개발-환경)  
-[2. 프로젝트 요약](#2-프로젝트-요약)  
-[3. 주요 기능 소개](#3-주요-기능-소개)  
-[4. 기능 동작 예시](#4-기능-동작-예시)  
+[1. 프로젝트 요약](#1-프로젝트-요약)  
+[2. 주요 기능 소개](#2-주요-기능-소개)  
+[3. 기능 동작 예시](#3-기능-동작-예시)  
 
 </br>
 
-# 1. 기술 스택 & 개발 환경
-- Language: Java 17
-- Framework: Spring Boot 3.4.5
-- Scheduler: Spring Batch
-- ORM: MyBatis
-- Database: MySQL
-- Build Tool: Gradle
-- API 연동: DeepL Translation API (Free Tier)
-- 디스코드 메시지 전송: Java Discord API (JDA)
-- 한자 데이터셋: Kanjidic2
-
-</br>
-
-# 2. 프로젝트 요약
+# 1. 프로젝트 요약
 - KanjiBot은 Discord 사용자에게 매일 한 번 일본어 한자를 전송하는 봇입니다.
 - 한자의 의미가 영어일 경우 DeepL API를 통해 자동으로 번역하고, Discord 채널로 메시지를 전송합니다.
 - 각 채널마다 전송 시간과 방식(랜덤/순차)을 개별 설정할 수 있어 다양한 스케줄 관리가 가능합니다.
 
 </br>
 
-# 3. 주요 기능 소개
+# 2. 주요 기능 소개
 ## 📆 매일 주기적 Kanji 전송
 - @Scheduled(cron = "0 */30 * * * *")
 → 매 30분마다 실행
@@ -88,7 +87,7 @@ Reading : ガイ
 
 </br>
 
-# 4. 기능 동작 예시
+# 3. 기능 동작 예시
 ## KanjiBot 전송 시간 등록
 <img src="src/main/resources/static/images/등록.JPG" width="400">
 
