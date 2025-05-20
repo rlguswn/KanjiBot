@@ -100,6 +100,27 @@ public class MessageListener extends ListenerAdapter {
                 kanjiChannelService.updateSendMode(channelId, "random");
                 discordMsgSender.sendMessage(event.getChannel().getId(), "모드를 `랜덤`으로 변경했습니다.");
             }
+        } else if (content.equals("!정보")) {
+            String channelId = event.getChannel().getId();
+            KanjiChannel kanjiChannel = kanjiChannelService.getKanjiChannelByChannelId(channelId);
+            if (kanjiChannel == null || kanjiChannel.getSendTime() == null) {
+                discordMsgSender.sendMessage(event.getChannel().getId(), "등록된 알림이 없습니다.");
+                return;
+            }
+
+            String sendTime = kanjiChannel.getSendTime();
+            String sendMode = kanjiChannel.getSendMode();
+
+            discordMsgSender.sendMessage(event.getChannel().getId(), "등록된 알림 정보:\n" +
+                    "시간: " + sendTime + "\n" +
+                    "모드: " + sendMode);
+        } else if (content.equals("!도움말")) {
+            discordMsgSender.sendMessage(event.getChannel().getId(), "사용 가능한 명령어:\n" +
+                    "`!등록 HH:MM` - 알림 등록\n" +
+                    "`!해제` - 알림 해제\n" +
+                    "`!모드` - 알림 모드 변경 (랜덤/순차적)\n" +
+                    "`!정보` - 등록된 알림 정보 확인\n" +
+                    "`!도움말` - 도움말 표시");
         }
     }
 }
