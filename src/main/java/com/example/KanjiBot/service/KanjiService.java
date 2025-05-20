@@ -1,11 +1,13 @@
 package com.example.KanjiBot.service;
 
 import com.example.KanjiBot.bot.DiscordMsgSender;
+import com.example.KanjiBot.deepl.DeepLTranslate;
 import com.example.KanjiBot.domain.Kanji;
 import com.example.KanjiBot.domain.KanjiChannel;
 import com.example.KanjiBot.mapper.KanjiMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,11 +16,13 @@ public class KanjiService {
     private final KanjiMapper kanjiMapper;
     private final KanjiChannelService kanjiChannelService;
     private final DiscordMsgSender discordMsgSender;
+    private final DeepLTranslate deepLTranslate;
 
-    public KanjiService(KanjiMapper kanjiMapper, KanjiChannelService kanjiChannelService, DiscordMsgSender discordMsgSender) {
+    public KanjiService(KanjiMapper kanjiMapper, KanjiChannelService kanjiChannelService, DiscordMsgSender discordMsgSender, DeepLTranslate deepLTranslate) {
         this.kanjiMapper = kanjiMapper;
         this.kanjiChannelService = kanjiChannelService;
         this.discordMsgSender = discordMsgSender;
+        this.deepLTranslate = deepLTranslate;
     }
 
     public void createKanji(Kanji kanji) {
@@ -43,14 +47,12 @@ public class KanjiService {
         return kanjiMapper.findById(randomId);
     }
 
-    public void sendKanjiToAllChannel(String sendTime) {
+    public void sendKanjiToAllChannel(String sendTime) throws IOException {
         List<KanjiChannel> kanjiChannels = kanjiChannelService.getKanjiChannelsBySendTime(sendTime);
         if (kanjiChannels.isEmpty()) {
             System.out.println("No channels found for send time: " + sendTime);
             return;
         }
-        System.out.println("Sending kanji to channels at: " + sendTime);
-        System.out.println("Found " + kanjiChannels.size() + " channels for send time: " + sendTime);
         for (KanjiChannel channel : kanjiChannels) {
             Kanji kanji;
             if (channel.getSendMode().equals("random")) {
@@ -68,14 +70,21 @@ public class KanjiService {
                 return;
             }
 
-            System.out.println("Sending kanji to channel: " + channel.getChannelId());
+            String meaning;
+            if (!kanji.getMeaning().matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+                meaning = deepLTranslate.translate(kanji.getMeaning(), "EN", "KO");
+                kanjiMapper.updateKanjiMeaning(kanji.getId(), meaning);
+            } else {
+                meaning = kanji.getMeaning();
+            }
+
             discordMsgSender.sendMessage(channel.getChannelId(), "Kanji 알림이 도착했습니다!");
             discordMsgSender.sendMessage(channel.getChannelId(),
                     "```" +
                             "📖 Today's Kanji\n" +
                             "━━━━━━━━━━━━━━━━━━━━\n" +
                             "Kanji   : " + kanji.getKanjiCharacter() + "\n" +
-                            "Meaning : " + kanji.getMeaning() + "\n" +
+                            "Meaning : " + meaning + "\n" +
                             "Reading : " + kanji.getReading() + "\n" +
                             "```"
             );

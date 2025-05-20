@@ -4,6 +4,7 @@ import com.example.KanjiBot.service.KanjiService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,7 +18,7 @@ public class KanjiScheduler {
     }
 
     @Scheduled(cron = "0 */30 * * * *")
-    public void sendDailyKanji() {
+    public void sendDailyKanji() throws IOException {
         LocalTime now = LocalTime.now();
         String sendTime = now.format(DateTimeFormatter.ofPattern("HH:mm"));
         kanjiService.sendKanjiToAllChannel(sendTime);
