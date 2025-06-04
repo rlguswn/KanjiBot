@@ -14,7 +14,7 @@
 - API 연동: DeepL Translation API (Free Tier)
 - 디스코드 메시지 전송: Java Discord API (JDA)
 - 한자 데이터셋: Kanjidic2
-- 
+
 </br>
 
 # 📅 개발 기간
